@@ -29,3 +29,10 @@ export const add = ((value, node) => {
     }
   }
 }) as addType;
+
+export const make = (values: number[]) => {
+  const [head, ...rest] = values;
+  const root = new TreeNode(head);
+  rest.forEach((v) => add(v, root));
+  return root;
+};

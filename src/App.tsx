@@ -38,7 +38,6 @@ const Level: React.FC<{ nodeValues: Array<number | null> }> = ({
 
 function App() {
   const root = make([8, 1, 3, 30, 20, 79, 2, 4]);
-  console.log(root);
   // const levels = levelOrderTraversalWithNulls(tree);
   return (
     <div>

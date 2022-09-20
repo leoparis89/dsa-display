@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { TreeNode } from "./binarySearchTree";
+import LeaderLine from "leader-line-new";
 
 const WrapperV = styled.div({
   display: "flex",
@@ -30,12 +31,30 @@ const Label = styled.div({
 export const TreeNodeDisplay: React.FC<{ node: TreeNode | null }> = ({
   node,
 }) => {
+  React.useEffect(() => {
+    if (node && node.left) {
+      const nodeEl = document.getElementById(node.value.toString());
+      const leftEl = document.getElementById(node.left.value.toString());
+      console.log(nodeEl);
+      console.log(leftEl);
+      //   new LeaderLine(
+      //     document.getElementById(node.value.toString()) as any,
+      //     document.getElementById(node.left.toString()) as any
+      //   );
+    }
+
+    // if (node && node.right) {
+    //   new LeaderLine(node.value, node.right);
+    // }
+  }, []);
+
   if (!node) {
     return <WrapperV />;
   }
+
   return (
     <WrapperV>
-      <Label>{node.value}</Label>
+      <Label id={node.value.toString()}>{node.value}</Label>
       <Wrapper>
         <TreeNodeDisplay node={node.left} />
         <TreeNodeDisplay node={node.right} />

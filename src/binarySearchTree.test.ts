@@ -42,7 +42,7 @@ describe("Binary search tree", () => {
   });
 
   test("levelOrderTraversalWithNulls returns the right value", () => {
-    const tree = make([3, 1, 8, 7, 9, 2, 20]);
+    const tree = make([3, 1, 2, 9, 20, 19]);
     const result = levelOrderTraversalWithNulls(tree);
     expect(result).toEqual("");
   });

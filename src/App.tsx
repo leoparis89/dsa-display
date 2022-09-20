@@ -16,10 +16,30 @@ const Button = styled.button`
   }
 `;
 
+const Box = styled.div({
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: "center",
+});
+
+const Level: React.FC<{ nodeValues: Array<number | null> }> = ({
+  nodeValues,
+}) => {
+  return (
+    <Box>
+      {nodeValues.map((v) => (
+        <Box>{v}</Box>
+      ))}
+    </Box>
+  );
+};
+
 function App() {
   return (
     <div className="App">
-      <Button>hello</Button>
+      <Level nodeValues={[1]} />
+      <Level nodeValues={[2, 4]} />
+      <Level nodeValues={[null, 4, 3, null]} />
     </div>
   );
 }

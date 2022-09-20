@@ -43,7 +43,7 @@ export const TreeNodeDisplay: React.FC<{ node: TreeNode | null }> = ({
       const rightEl = document.getElementById(node.right.value.toString());
       new LeaderLine(nodeEl as any, rightEl as any);
     }
-  }, []);
+  }, [node]);
 
   if (!node) {
     return <WrapperV />;

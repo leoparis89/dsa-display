@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import styled from "@emotion/styled";
+import { TreeNodeDisplay } from "./TreeNode";
+import { make } from "./binarySearchTree";
 
 const Button = styled.button`
   padding: 32px;
@@ -35,11 +37,15 @@ const Level: React.FC<{ nodeValues: Array<number | null> }> = ({
 };
 
 function App() {
+  const root = make([8, 1, 3, 30, 20, 79, 2, 4]);
+  console.log(root);
+  // const levels = levelOrderTraversalWithNulls(tree);
   return (
-    <div className="App">
-      <Level nodeValues={[1]} />
-      <Level nodeValues={[2, 4]} />
-      <Level nodeValues={[null, 4, 3, null]} />
+    <div>
+      <TreeNodeDisplay node={root} />
+      {/* {levels.map((l) => (
+        <Level nodeValues={l} />
+      ))} */}
     </div>
   );
 }

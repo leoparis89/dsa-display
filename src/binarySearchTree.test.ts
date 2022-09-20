@@ -1,8 +1,4 @@
-import {
-  levelOrderTraversal,
-  levelOrderTraversalWithNulls,
-  make,
-} from "./binarySearchTree";
+import { levelOrderTraversal, make } from "./binarySearchTree";
 
 describe("Binary search tree", () => {
   test("make returns a binary search tree", () => {
@@ -39,11 +35,5 @@ describe("Binary search tree", () => {
     const tree = make([3, 1, 8, 7, 9, 2]);
     const result = levelOrderTraversal(tree);
     expect(result).toEqual([[3], [1, 8], [2, 7, 9]]);
-  });
-
-  test("levelOrderTraversalWithNulls returns the right value", () => {
-    const tree = make([3, 1, 2, 9, 20, 19]);
-    const result = levelOrderTraversalWithNulls(tree);
-    expect(result).toEqual("");
   });
 });

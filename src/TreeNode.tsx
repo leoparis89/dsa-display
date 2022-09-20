@@ -12,8 +12,19 @@ const WrapperV = styled.div({
 const Wrapper = styled.div({
   display: "flex",
   justifyContent: "space-around",
-  alignItems: "center",
+  alignItems: "flex-start",
   width: "100%",
+});
+
+const Label = styled.div({
+  borderRadius: "50%",
+  background: "pink",
+  width: 50,
+  height: 50,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  //   padding: 16,
 });
 
 export const TreeNodeDisplay: React.FC<{ node: TreeNode | null }> = ({
@@ -24,7 +35,7 @@ export const TreeNodeDisplay: React.FC<{ node: TreeNode | null }> = ({
   }
   return (
     <WrapperV>
-      {node.value}
+      <Label>{node.value}</Label>
       <Wrapper>
         <TreeNodeDisplay node={node.left} />
         <TreeNodeDisplay node={node.right} />

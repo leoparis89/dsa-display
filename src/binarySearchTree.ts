@@ -36,3 +36,25 @@ export const make = (values: number[]) => {
   rest.forEach((v) => add(v, root));
   return root;
 };
+
+export const levelOrderTraversal = (root: TreeNode | null) => {
+  const levels: number[][] = [];
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const work = (n: TreeNode | null, level = 0) => {
+    if (!n) return;
+
+    const currentLevel = levels[level];
+    if (!currentLevel) {
+      levels.push([n.value]);
+    } else {
+      currentLevel.push(n.value);
+    }
+
+    work(n.left, level + 1);
+    work(n.right, level + 1);
+  };
+
+  work(root);
+  return levels;
+};

@@ -35,17 +35,14 @@ export const TreeNodeDisplay: React.FC<{ node: TreeNode | null }> = ({
     if (node && node.left) {
       const nodeEl = document.getElementById(node.value.toString());
       const leftEl = document.getElementById(node.left.value.toString());
-      console.log(nodeEl);
-      console.log(leftEl);
-      //   new LeaderLine(
-      //     document.getElementById(node.value.toString()) as any,
-      //     document.getElementById(node.left.toString()) as any
-      //   );
+      new LeaderLine(nodeEl as any, leftEl as any);
     }
 
-    // if (node && node.right) {
-    //   new LeaderLine(node.value, node.right);
-    // }
+    if (node && node.right) {
+      const nodeEl = document.getElementById(node.value.toString());
+      const rightEl = document.getElementById(node.right.value.toString());
+      new LeaderLine(nodeEl as any, rightEl as any);
+    }
   }, []);
 
   if (!node) {

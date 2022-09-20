@@ -58,3 +58,26 @@ export const levelOrderTraversal = (root: TreeNode | null) => {
   work(root);
   return levels;
 };
+
+export const levelOrderTraversalWithNulls = (root: TreeNode | null) => {
+  const levels: Array<number | null>[] = [];
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const work = (n: TreeNode | null, level = 0) => {
+    const currentLevel = levels[level];
+    if (!currentLevel) {
+      levels.push([n && n.value]);
+    } else {
+      currentLevel.push(n && n.value);
+    }
+
+    if (!n) return;
+    work(n.left, level + 1);
+    work(n.right, level + 1);
+  };
+
+  work(root);
+
+  const lastLevelAllNull = levels.at(-1)?.every((v) => v === null);
+  return lastLevelAllNull ? levels.slice(0, levels.length - 1) : levels;
+};

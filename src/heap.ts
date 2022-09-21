@@ -5,6 +5,12 @@ export class MinHeap {
   insert(value: number): void {}
   delete(): number {}
 
+  private heapifyDown(idx: number): void {
+    if (idx >= this.length) {
+      return;
+    }
+  }
+
   private heapifyUp(idx: number) {
     if (idx === 0) {
       return;

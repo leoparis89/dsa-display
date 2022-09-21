@@ -9,12 +9,18 @@ export class MinHeap {
   }
 
   delete(): number {
-    return 0;
+    const result = this.data[0];
+    this.data[0] = this.data[this.length - 1];
+    this.data.pop();
+    this.length--;
+    this.heapifyDown(0);
+    return result;
   }
 
   private heapifyDown(idx: number): void {
     const leftIdx = this.leftChild(idx);
     const rightIdx = this.rightChild(idx);
+
     if (idx >= this.length || leftIdx >= this.length) {
       return;
     }

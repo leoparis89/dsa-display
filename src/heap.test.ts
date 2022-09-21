@@ -1,7 +1,7 @@
 import { MinHeap } from "./heap";
 
 describe("heap", () => {
-  test("insert", () => {
+  test("insert and delete", () => {
     const heap = new MinHeap();
     heap.insert(30);
     expect(heap).toEqual({ data: [30], length: 1 });

@@ -20,11 +20,12 @@ const Wrapper = styled.div({
 const Label = styled.div({
   borderRadius: "50%",
   background: "pink",
-  width: 50,
-  height: 50,
+  width: 30,
+  height: 30,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  marginTop: 25,
   //   padding: 16,
 });
 

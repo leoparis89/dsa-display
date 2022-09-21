@@ -9,6 +9,10 @@ export class MinHeap {
   }
 
   delete(): number {
+    if (this.length === 0) {
+      return -1;
+    }
+
     const result = this.data[0];
     this.data[0] = this.data[this.length - 1];
     this.data.pop();
@@ -26,14 +30,14 @@ export class MinHeap {
     }
 
     const leftVal = this.data[leftIdx];
-    const rightVal = this.data[leftIdx];
+    const rightVal = this.data[rightIdx];
     const v = this.data[idx];
 
-    if (leftVal > rightVal && leftVal > v) {
+    if (leftVal < rightVal && leftVal < v) {
       this.data[leftIdx] = v;
       this.data[idx] = leftVal;
       this.heapifyDown(leftIdx);
-    } else if (rightVal > leftVal && rightVal > v) {
+    } else if (rightVal < leftVal && rightVal < v) {
       this.data[rightIdx] = v;
       this.data[idx] = rightVal;
       this.heapifyDown(rightIdx);

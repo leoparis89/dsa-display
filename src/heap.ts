@@ -2,9 +2,15 @@ export class MinHeap {
   public length: number = 0;
   private data: number[] = [];
 
-  insert(value: number): void {}
+  insert(value: number): void {
+    this.length++;
+    this.data.push(value);
+    this.heapifyUp(this.length - 1);
+  }
 
-  delete(): number {}
+  delete(): number {
+    return 0;
+  }
 
   private heapifyDown(idx: number): void {
     const leftIdx = this.leftChild(idx);

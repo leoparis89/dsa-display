@@ -6,7 +6,9 @@ export class MinHeap {
   delete(): number {}
 
   private heapifyDown(idx: number): void {
-    if (idx >= this.length) {
+    const leftIdx = this.leftChild(idx);
+    const rightIdx = this.rightChild(idx);
+    if (idx >= this.length || leftIdx >= this.length) {
       return;
     }
   }

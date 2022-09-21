@@ -5,6 +5,22 @@ export class MinHeap {
   insert(value: number): void {}
   delete(): number {}
 
+  private heapifyUp(idx: number) {
+    if (idx === 0) {
+      return;
+    }
+
+    const p = this.parent(idx);
+    const parentVal = this.data[p];
+    const v = this.data[idx];
+
+    if (parentVal > v) {
+      this.data[p] = v;
+      this.data[idx] = parentVal;
+      this.heapifyUp(p);
+    }
+  }
+
   private parent(idx: number): number {
     return Math.floor((idx - 1) / 2);
   }

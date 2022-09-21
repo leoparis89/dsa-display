@@ -3,6 +3,7 @@ export class MinHeap {
   private data: number[] = [];
 
   insert(value: number): void {}
+
   delete(): number {}
 
   private heapifyDown(idx: number): void {
@@ -10,6 +11,20 @@ export class MinHeap {
     const rightIdx = this.rightChild(idx);
     if (idx >= this.length || leftIdx >= this.length) {
       return;
+    }
+
+    const leftVal = this.data[leftIdx];
+    const rightVal = this.data[leftIdx];
+    const v = this.data[idx];
+
+    if (leftVal > rightVal && leftVal > v) {
+      this.data[leftIdx] = v;
+      this.data[idx] = leftVal;
+      this.heapifyDown(leftIdx);
+    } else if (rightVal > leftVal && rightVal > v) {
+      this.data[rightIdx] = v;
+      this.data[idx] = rightVal;
+      this.heapifyDown(rightIdx);
     }
   }
 

@@ -32,19 +32,24 @@ const Label = styled.div({
 export const TreeNodeDisplay: React.FC<{ node: TreeNode | null }> = ({
   node,
 }) => {
-  // React.useEffect(() => {
-  //   if (node && node.left) {
-  //     const nodeEl = document.getElementById(node.value.toString());
-  //     const leftEl = document.getElementById(node.left.value.toString());
-  //     new LeaderLine(nodeEl as any, leftEl as any, { path: "straight" });
-  //   }
+  const nodeVal = node?.value;
+  const leftVal = node?.left?.value;
+  const rightVal = node?.right?.value;
 
-  //   if (node && node.right) {
-  //     const nodeEl = document.getElementById(node.value.toString());
-  //     const rightEl = document.getElementById(node.right.value.toString());
-  //     new LeaderLine(nodeEl as any, rightEl as any, { path: "straight" });
-  //   }
-  // }, [node]);
+  React.useEffect(() => {
+    if (nodeVal && leftVal) {
+      const nodeEl = document.getElementById(nodeVal.toString());
+      const leftEl = document.getElementById(leftVal.toString());
+      new LeaderLine(nodeEl as any, leftEl as any, { path: "straight" });
+    }
+
+    if (nodeVal && rightVal) {
+      // console.log("draw", node.value.toString(), rightVal.toString());
+      const nodeEl = document.getElementById(nodeVal.toString());
+      const rightEl = document.getElementById(rightVal.toString());
+      new LeaderLine(nodeEl as any, rightEl as any, { path: "straight" });
+    }
+  }, [nodeVal, leftVal, rightVal]);
 
   if (!node) {
     return <WrapperV />;

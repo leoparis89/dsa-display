@@ -1,5 +1,6 @@
 import React from "react";
 import { TreeNode, add } from "./binarySearchTree";
+import { TreeNodeDisplay } from "./TreeNode";
 
 export const BinaryTree = () => {
   let [tree, setTree] = React.useState<TreeNode | null>(null);
@@ -10,10 +11,10 @@ export const BinaryTree = () => {
       setTree(new TreeNode(val));
     } else {
       add(val, tree);
+      setTree({ ...tree });
     }
   };
 
-  console.log(tree);
   return (
     <div>
       <input
@@ -33,7 +34,7 @@ export const BinaryTree = () => {
         Add
       </button>
       <button onClick={(_) => setTree(null)}>Reset</button>
-      hello
+      <TreeNodeDisplay node={tree} />
     </div>
   );
 };

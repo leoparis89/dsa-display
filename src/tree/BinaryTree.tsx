@@ -1,6 +1,6 @@
 import React from "react";
-import { TreeNode, add } from "./binarySearchTree";
-import { TreeNodeDisplay } from "./TreeNode";
+import { add, TreeNode } from "./binarySearchTree";
+import { TreeNodeWithEdges } from "./TreeNode";
 
 export const BinaryTree = () => {
   let [tree, setTree] = React.useState<TreeNode | null>(null);
@@ -34,7 +34,7 @@ export const BinaryTree = () => {
         Add
       </button>
       <button onClick={(_) => setTree(null)}>Reset</button>
-      <TreeNodeDisplay node={tree} />
+      <TreeNodeWithEdges node={tree} />
     </div>
   );
 };

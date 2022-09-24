@@ -32,25 +32,6 @@ const Label = styled.div({
 export const TreeNodeDisplay: React.FC<{ node: TreeNode | null }> = ({
   node,
 }) => {
-  const nodeVal = node?.value;
-  const leftVal = node?.left?.value;
-  const rightVal = node?.right?.value;
-
-  React.useEffect(() => {
-    if (nodeVal && leftVal) {
-      const nodeEl = document.getElementById(nodeVal.toString());
-      const leftEl = document.getElementById(leftVal.toString());
-      new LeaderLine(nodeEl as any, leftEl as any, { path: "straight" });
-    }
-
-    if (nodeVal && rightVal) {
-      // console.log("draw", node.value.toString(), rightVal.toString());
-      const nodeEl = document.getElementById(nodeVal.toString());
-      const rightEl = document.getElementById(rightVal.toString());
-      new LeaderLine(nodeEl as any, rightEl as any, { path: "straight" });
-    }
-  }, [nodeVal, leftVal, rightVal]);
-
   if (!node) {
     return <WrapperV />;
   }
@@ -64,4 +45,48 @@ export const TreeNodeDisplay: React.FC<{ node: TreeNode | null }> = ({
       </Wrapper>
     </WrapperV>
   );
+};
+
+const drawEdges = (node: TreeNode | null, edges: LeaderLine[]) => {
+  if (!node) {
+    return;
+  }
+
+  const nodeVal = node.value;
+  const leftVal = node?.left?.value;
+  const rightVal = node?.right?.value;
+
+  const nodeEl = document.getElementById(nodeVal.toString());
+  if (nodeVal && leftVal) {
+    const leftEl = document.getElementById(leftVal.toString());
+    const line = new LeaderLine(nodeEl as any, leftEl as any, {
+      path: "straight",
+    });
+    edges.push(line);
+  }
+
+  if (nodeVal && rightVal) {
+    const rightEl = document.getElementById(rightVal.toString());
+    const line = new LeaderLine(nodeEl as any, rightEl as any, {
+      path: "straight",
+    });
+    edges.push(line);
+  }
+
+  drawEdges(node.left, edges);
+  drawEdges(node.right, edges);
+};
+
+export const TreeNodeWithEdges: React.FC<{ node: TreeNode | null }> = ({
+  node,
+}) => {
+  const edges = React.useRef<LeaderLine[]>([]);
+
+  React.useEffect(() => {
+    edges.current.forEach((l) => l.remove());
+    edges.current = [];
+    drawEdges(node, edges.current);
+  }, [node]);
+
+  return <TreeNodeDisplay node={node} />;
 };

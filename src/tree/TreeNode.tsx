@@ -38,7 +38,7 @@ export const TreeNodeDisplay: React.FC<{ node: TreeNode | null }> = ({
 
   return (
     <WrapperV>
-      <Label id={node.value.toString()}>{node.value}</Label>
+      <Label id={node.value.toString() + "-" + node._id}>{node.value}</Label>
       <Wrapper>
         <TreeNodeDisplay node={node.left} />
         <TreeNodeDisplay node={node.right} />
@@ -52,21 +52,24 @@ const drawEdges = (node: TreeNode | null, edges: LeaderLine[]) => {
     return;
   }
 
-  const nodeVal = node.value;
-  const leftVal = node?.left?.value;
-  const rightVal = node?.right?.value;
+  const nodeId = node.value.toString() + "-" + node._id;
+  const leftId = node.left && node.left.value.toString() + "-" + node.left._id;
+  const rightId =
+    node.right && node.right.value.toString() + "-" + node.right._id;
 
-  const nodeEl = document.getElementById(nodeVal.toString());
-  if (nodeVal && leftVal) {
-    const leftEl = document.getElementById(leftVal.toString());
+  console.log(nodeId);
+  const nodeEl = document.getElementById(nodeId.toString());
+
+  if (nodeId && leftId) {
+    const leftEl = document.getElementById(leftId);
     const line = new LeaderLine(nodeEl as any, leftEl as any, {
       path: "straight",
     });
     edges.push(line);
   }
 
-  if (nodeVal && rightVal) {
-    const rightEl = document.getElementById(rightVal.toString());
+  if (nodeId && rightId) {
+    const rightEl = document.getElementById(rightId.toString());
     const line = new LeaderLine(nodeEl as any, rightEl as any, {
       path: "straight",
     });

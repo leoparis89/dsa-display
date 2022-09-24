@@ -5,8 +5,25 @@ const HeapScreen = () => {
   let [heap, setHeap] = React.useState<MinHeap>(new MinHeap());
   let [val, setVal] = React.useState<number>();
 
-  const handleClickAdd = (v: number) => {};
-  const handleClickDelete = () => {};
+  const handleClickInsert = (v: number) => {
+    heap.insert(v);
+    const clone = Object.assign(
+      Object.create(Object.getPrototypeOf(heap)),
+      heap
+    );
+
+    setHeap(clone);
+  };
+  const handleClickDelete = () => {
+    heap.delete();
+
+    const clone = Object.assign(
+      Object.create(Object.getPrototypeOf(heap)),
+      heap
+    );
+
+    setHeap(clone);
+  };
 
   return (
     <div>
@@ -20,16 +37,16 @@ const HeapScreen = () => {
         aria-label="value"
         placeholder="value"
       />
-      hello
       <button
         disabled={val === undefined}
-        onClick={(_) => handleClickAdd(val!)}
+        onClick={(_) => handleClickInsert(val!)}
       >
-        Add
+        Insert
       </button>
       <button disabled={val === undefined} onClick={(_) => handleClickDelete()}>
         Delete
       </button>
+      <h1>{JSON.stringify(heap)}</h1>
     </div>
   );
 };

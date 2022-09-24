@@ -16,6 +16,7 @@ export class MinHeap {
     const result = this.data[0];
     this.data[0] = this.data[this.length - 1];
     this.data.pop();
+    console.log(this.data);
     this.length--;
     this.heapifyDown(0);
     return result;
@@ -25,7 +26,7 @@ export class MinHeap {
     const leftIdx = this.leftChild(idx);
     const rightIdx = this.rightChild(idx);
 
-    if (idx >= this.length || leftIdx >= this.length) {
+    if (idx >= this.length && leftIdx >= this.length) {
       return;
     }
 
@@ -33,14 +34,22 @@ export class MinHeap {
     const rightVal = this.data[rightIdx];
     const v = this.data[idx];
 
-    if (leftVal < rightVal && leftVal < v) {
-      this.data[leftIdx] = v;
-      this.data[idx] = leftVal;
-      this.heapifyDown(leftIdx);
-    } else if (rightVal < leftVal && rightVal < v) {
-      this.data[rightIdx] = v;
-      this.data[idx] = rightVal;
-      this.heapifyDown(rightIdx);
+    let minIdx = idx;
+
+    if (leftVal !== undefined && leftVal < this.data[minIdx]) {
+      minIdx = leftIdx;
+    }
+
+    if (rightVal !== undefined && rightVal < this.data[minIdx]) {
+      minIdx = rightIdx;
+    }
+
+    console.log(minIdx);
+    if (minIdx !== idx) {
+      const tmp = this.data[minIdx];
+      this.data[minIdx] = v;
+      this.data[idx] = tmp;
+      this.heapifyDown(minIdx);
     }
   }
 

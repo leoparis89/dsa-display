@@ -2,7 +2,7 @@ import { MinHeap } from "./heap";
 
 describe("heap", () => {
   test("insert and delete", () => {
-    const heap = new MinHeap();
+    let heap = new MinHeap();
     heap.insert(30);
     expect(heap).toEqual({ data: [30], length: 1 });
     heap.insert(5);
@@ -27,5 +27,13 @@ describe("heap", () => {
     expect(heap.delete()).toEqual(40);
     expect(heap).toEqual({ data: [], length: 0 });
     expect(heap.delete()).toEqual(-1);
+
+    heap = new MinHeap();
+    heap.insert(1);
+    heap.insert(2);
+    heap.insert(3);
+    expect(heap).toEqual({ data: [1, 2, 3], length: 3 });
+    expect(heap.delete()).toEqual(1);
+    expect(heap).toEqual({ data: [2, 3], length: 2 });
   });
 });

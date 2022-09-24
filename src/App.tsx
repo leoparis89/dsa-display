@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
 
-import { TreeNodeDisplay } from "./TreeNode";
-import { make } from "./binarySearchTree";
+import { TreeNodeDisplay } from "./tree/TreeNode";
+import { make } from "./tree/binarySearchTree";
 
 function App() {
   const root = make([8, 1, 3, 30, 20, 79, 2, 4, 11, 6, 9, 5, 7, 200, 150, 300]);

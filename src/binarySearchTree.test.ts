@@ -1,4 +1,4 @@
-import { levelOrderTraversal, make } from "./binarySearchTree";
+import { levelOrderTraversal, make } from "./tree/binarySearchTree";
 
 describe("Binary search tree", () => {
   test("make returns a binary search tree", () => {

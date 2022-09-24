@@ -14,6 +14,7 @@ const HeapScreen = () => {
 
     setHeap(clone);
   };
+
   const handleClickDelete = () => {
     heap.delete();
 

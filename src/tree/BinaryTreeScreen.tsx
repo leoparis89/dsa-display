@@ -2,7 +2,7 @@ import React from "react";
 import { add, TreeNode } from "./binarySearchTree";
 import { TreeNodeWithEdges } from "./TreeNode";
 
-export const BinaryTree = () => {
+const BinaryTree = () => {
   let [tree, setTree] = React.useState<TreeNode | null>(null);
   let [val, setVal] = React.useState<number>();
 
@@ -38,3 +38,5 @@ export const BinaryTree = () => {
     </div>
   );
 };
+
+export default BinaryTree;

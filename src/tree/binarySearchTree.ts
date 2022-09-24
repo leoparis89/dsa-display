@@ -1,9 +1,13 @@
+import shortid from "shortid";
 export class TreeNode {
   value: number;
   left: TreeNode | null = null;
   right: TreeNode | null = null;
+  _id: string;
+
   constructor(value: number) {
     this.value = value;
+    this._id = shortid();
   }
 }
 

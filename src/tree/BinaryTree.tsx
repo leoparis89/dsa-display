@@ -18,7 +18,7 @@ export const BinaryTree = () => {
         placeholder="value"
       />
       <button>Add</button>
-      <button>Reset</button>
+      <button onClick={(_) => setTree(null)}>Reset</button>
       hello
     </div>
   );

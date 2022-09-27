@@ -2,6 +2,10 @@ export class MinHeap {
   public length: number = 0;
   private data: number[] = [];
 
+  toArray() {
+    return this.data;
+  }
+
   insert(value: number): void {
     this.length++;
     this.data.push(value);

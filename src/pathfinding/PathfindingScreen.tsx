@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-export const Cell = ({ size = 16 }) => {
+export const Cell = ({ size = 16, value = 0 }) => {
+  const color = value === 1 ? "brown" : "lightgreen";
   const CellBase = styled.div({
     width: size,
     height: size,
-    background: "red",
+    background: color,
     margin: 4,
     borderRadius: "10%",
-    boxShadow: `3px 3px 10px red`,
+    boxShadow: `3px 3px 10px ${color}`,
   });
   return <CellBase />;
 };
@@ -35,8 +36,8 @@ export const PathfindingScreen = () => {
       hello
       {grid1.map((row) => (
         <Row>
-          {row.map((el) => (
-            <Cell size={32} />
+          {row.map((value) => (
+            <Cell size={32} value={value} />
           ))}
         </Row>
       ))}

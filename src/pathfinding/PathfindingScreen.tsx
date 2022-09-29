@@ -30,10 +30,60 @@ const grid1 = [
   [0, 0, 0, 1, 1],
   [0, 0, 0, 0, 0],
 ];
+
+enum Mode {
+  Start,
+  Finish,
+  Wall,
+  Delete,
+}
+
+const Wrapper = styled.div({ justifyContent: "center", display: "flex" });
+
+const Box = styled.div<{ selected?: boolean }>((props) => ({
+  border: "3px dashed red;",
+  background: props.selected ? "pink" : "transparent",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: 80,
+  height: 40,
+  margin: 8,
+  cursor: props.selected ? "initial" : "pointer",
+}));
+
+const ModeSelector: React.FC<{ onChange: (m: Mode) => void; mode: Mode }> = ({
+  onChange,
+  mode,
+}) => {
+  return (
+    <Wrapper>
+      <Box selected={mode === Mode.Start} onClick={(_) => onChange(Mode.Start)}>
+        Start
+      </Box>
+      <Box
+        selected={mode === Mode.Finish}
+        onClick={(_) => onChange(Mode.Finish)}
+      >
+        Finish
+      </Box>
+      <Box
+        selected={mode === Mode.Delete}
+        onClick={(_) => onChange(Mode.Delete)}
+      >
+        Wall
+      </Box>
+    </Wrapper>
+  );
+};
+
 export const PathfindingScreen = () => {
+  const [mode, setMode] = React.useState<Mode>(Mode.Start);
+
   return (
     <div>
       hello
+      <ModeSelector onChange={setMode} mode={mode} />
       {grid1.map((row) => (
         <Row>
           {row.map((value) => (

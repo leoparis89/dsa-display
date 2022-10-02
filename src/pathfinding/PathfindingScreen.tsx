@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-export const Cell = ({ size = 16, value = 0 }) => {
+export const Cell = ({ size = 16, value = 0, onHover = () => {} }) => {
   const color = value === 1 ? "brown" : "lightgreen";
   const CellBase = styled.div({
     width: size,
@@ -11,7 +11,7 @@ export const Cell = ({ size = 16, value = 0 }) => {
     borderRadius: "10%",
     boxShadow: `3px 3px 10px ${color}`,
   });
-  return <CellBase />;
+  return <CellBase onMouseOver={(_) => onHover()} />;
 };
 
 const Row = styled.div({
@@ -79,15 +79,20 @@ const ModeSelector: React.FC<{ onChange: (m: Mode) => void; mode: Mode }> = ({
 
 export const PathfindingScreen = () => {
   const [mode, setMode] = React.useState<Mode>(Mode.Start);
+  const [hovered, setHovered] = React.useState<string>();
 
   return (
     <div>
-      hello
+      {hovered}
       <ModeSelector onChange={setMode} mode={mode} />
-      {grid1.map((row) => (
+      {grid1.map((row, rowI) => (
         <Row>
-          {row.map((value) => (
-            <Cell size={32} value={value} />
+          {row.map((value, colI) => (
+            <Cell
+              size={32}
+              onHover={() => setHovered(`${rowI}-${colI}`)}
+              value={value}
+            />
           ))}
         </Row>
       ))}

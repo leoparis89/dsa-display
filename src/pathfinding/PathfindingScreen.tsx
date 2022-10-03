@@ -1,19 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-export const Cell = ({ size = 16, value = 0, onHover = () => {} }) => {
-  const color = value === 1 ? "brown" : "lightgreen";
-  const CellBase = styled.div({
-    width: size,
-    height: size,
-    background: color,
-    margin: 4,
-    borderRadius: "10%",
-    boxShadow: `3px 3px 10px ${color}`,
-  });
-  return <CellBase onMouseOver={(_) => onHover()} />;
-};
-
 const Row = styled.div({
   display: "flex",
   justifyContent: "center",
@@ -23,12 +10,17 @@ export const GridDisplay: React.FC<{ grid: number[][] }> = ({ grid }) => {
   return <div></div>;
 };
 
+const E = 0;
+const W = 1;
+
+const S = 2;
+const F = 3;
 const grid1 = [
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 0],
-  [0, 1, 0, 0, 0],
-  [0, 0, 0, 1, 1],
-  [0, 0, 0, 0, 0],
+  [S, E, E, E, E],
+  [E, W, E, E, E],
+  [E, W, E, E, E],
+  [E, W, E, F, E],
+  [E, E, E, E, E],
 ];
 
 enum Mode {
@@ -75,6 +67,30 @@ const ModeSelector: React.FC<{ onChange: (m: Mode) => void; mode: Mode }> = ({
       </Box>
     </Wrapper>
   );
+};
+
+export const Cell = ({ size = 16, value = E, onHover = () => {} }) => {
+  let color = "transparent";
+
+  if (value === E) {
+    color = "gray";
+  } else if (value === W) {
+    color = "brown";
+  } else if (value === S) {
+    color = "blue";
+  } else if (value === F) {
+    color = "red";
+  }
+
+  const CellBase = styled.div({
+    width: size,
+    height: size,
+    background: color,
+    margin: 4,
+    borderRadius: "10%",
+    boxShadow: `3px 3px 10px ${color}`,
+  });
+  return <CellBase onMouseOver={(_) => onHover()} />;
 };
 
 export const PathfindingScreen = () => {

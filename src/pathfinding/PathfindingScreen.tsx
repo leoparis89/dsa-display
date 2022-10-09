@@ -69,7 +69,13 @@ const ModeSelector: React.FC<{ onChange: (m: Mode) => void; mode: Mode }> = ({
   );
 };
 
-export const Cell = ({ size = 16, value = E, onHover = () => {} }) => {
+export const Cell = ({
+  size = 16,
+  value = E,
+  onHover = () => {},
+  onMouseUp = () => {},
+  onMouseDown = () => {},
+}) => {
   let color = "transparent";
 
   if (value === E) {
@@ -86,27 +92,81 @@ export const Cell = ({ size = 16, value = E, onHover = () => {} }) => {
     width: size,
     height: size,
     background: color,
-    margin: 4,
+    // margin: 4,
     borderRadius: "10%",
     boxShadow: `3px 3px 10px ${color}`,
+    cursor: "pointer",
   });
-  return <CellBase onMouseOver={(_) => onHover()} />;
+  return (
+    <CellBase
+      onMouseOver={(_) => onHover()}
+      onMouseUp={(_) => {
+        onMouseUp();
+      }}
+      onMouseDown={(_) => {
+        onMouseDown();
+      }}
+    />
+  );
+};
+
+const parseCoords = (coords: string) => {
+  const [x, y] = coords.split("-");
+  return [Number(x), Number(y)];
+};
+
+const moveStart = (grid: number[][], coords: string) => {
+  grid1.map((row, j) =>
+    row.map((value, i) => {
+      if (grid[j][i] === S) {
+        grid[j][i] = E;
+      }
+    })
+  );
+
+  const [x, y] = coords.split("-");
+  grid[Number(y)][Number(x)] = S;
+  return grid;
 };
 
 export const PathfindingScreen = () => {
   const [mode, setMode] = React.useState<Mode>(Mode.Start);
   const [hovered, setHovered] = React.useState<string>();
+  const [startPressed, setStartPressed] = React.useState(false);
+  const [grid, setGrid] = React.useState(grid1);
+
+  if (startPressed) {
+    console.log(hovered);
+    const [x, y] = parseCoords(hovered!);
+
+    if (grid[y][x] !== S) {
+      setGrid([...moveStart(grid, hovered!)]);
+    }
+  }
 
   return (
     <div>
-      {hovered}
       <ModeSelector onChange={setMode} mode={mode} />
-      {grid1.map((row, rowI) => (
+      {grid.map((row, j) => (
         <Row>
-          {row.map((value, colI) => (
+          {row.map((value, i) => (
             <Cell
+              onMouseDown={() => {
+                if (value === S) {
+                  setStartPressed(true);
+                }
+
+                if (startPressed) {
+                  setStartPressed(false);
+                }
+              }}
+              // onMouseUp={() => {
+              //   debugger;
+              //   setStartPressed(false);
+              // }}
               size={32}
-              onHover={() => setHovered(`${rowI}-${colI}`)}
+              onHover={() => setHovered(`${i}-${j}`)}
+              key={`${i}-${j}`}
               value={value}
             />
           ))}
